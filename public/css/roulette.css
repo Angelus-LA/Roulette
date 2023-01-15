@@ -1,0 +1,16 @@
+table.roulette td {
+  width: 7%;
+  height: 20%
+}
+.red {
+  color: aqua;
+  background-color: red
+}
+.black {
+  color: silver;
+  background-color: black
+}
+.green {
+  color: white;
+  background-color: green
+}

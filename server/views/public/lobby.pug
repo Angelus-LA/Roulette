@@ -1,0 +1,11 @@
+div(class = 'lobby') Lobby
+  form(action = routes.public.game.url, method = routes.public.game.method)
+    label(for = 'room') Select room: 
+    select(name='room')
+      option
+      each room in rooms
+        option(value=room)= room
+    label(for = 'coins') Enter coins: 
+    input(name = 'coins', type = 'text', value = '')
+    input(type = 'submit', value = 'Enter game')
+

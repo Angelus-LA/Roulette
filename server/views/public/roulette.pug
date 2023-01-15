@@ -1,0 +1,36 @@
+- var redBlack = ['-', 'red','black','red','black','red','black','red','black','red', 'black','black','red','black','red','black','red','black','red', 'red','black','red','black','red','black','red','black','red', 'black','black','red','black','red','black','red','black','red']
+div
+  table(class = 'roulette' border = '1')
+    tr(align = 'center')
+      td(class = 'green') 00
+      each i in [3,6,9,12,15,18,21,24,27,30,33,36]
+        td(class = redBlack[i], id = 'num'+i)
+          =i
+      td 2<sup>to</sup>1
+    tr(align = 'center')
+      td
+      each i in [2,5,8,11,14,17,20,23,26,29,32,35]
+        td(class = redBlack[i], id = 'num'+i)
+          =i
+      td 2<sup>to</sup>1
+    tr(align = 'center')
+      td(class = 'green') 0
+      each i in [1,4,7,10,13,16,19,22,25,28,31,34]
+        td(class = redBlack[i], id = 'num'+i)
+          =i
+      td 2<sup>to</sup>1
+    tr(align = 'center')
+      td
+      td(colspan = '4') 1<sup>st</sup> 12
+      td(colspan = '4') 2<sup>nd</sup> 12
+      td(colspan = '4') 3<sup>rd</sup> 12
+      td
+    tr(align = 'center')
+      td
+      td(colspan = '2') 1-18
+      td(colspan = '2') EVEN
+      td(class = 'red' colspan = '2') RED
+      td(class = 'black' colspan = '2') BLACK
+      td(colspan = '2') ODD
+      td(colspan = '2') 19-36
+      td

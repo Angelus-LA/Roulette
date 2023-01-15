@@ -1,0 +1,18 @@
+extends layout
+
+block game
+
+  h2 =message
+  hr
+  if coins < 1 || room == ''
+    include lobby
+  else
+    include roulette
+    script(src='/js/events.js')
+    hr
+    div Say something: 
+    input(name = 'chat', id = 'chat', type = 'text', value = '')
+    button(type = 'button' id = 'send_chat' onclick = 'sendChatMessage()') Send
+    div(id = 'wsmessages') Messages:
+  a(href = '/logout/') Log out
+
