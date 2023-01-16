@@ -1,5 +1,5 @@
 const { showLogin, processLogin, logout } = require('./auth.js')
-const { enterCoins, lobby, gameRoomAndCoins } = require('./game.js')
+const { enterCoins, lobby, gameRoomAndCoins, processLobby } = require('./game.js')
 
 const routes = {
   public : {
@@ -24,16 +24,16 @@ const routes = {
       action : lobby,
       method : 'get'
     },
+    processlobby : {
+      url : "/processlobby/",
+      action : processLobby,
+      method : 'post'
+    },
     game : {
       url : "/game/",
       action : gameRoomAndCoins,
-      method : 'post'
+      method : 'get'
     }
-/*    entercoins : {
-      url : "/entercoins/",
-      action : enterCoins,
-      method : 'post'
-    }*/
   }
 }
 
