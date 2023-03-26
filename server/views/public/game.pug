@@ -2,13 +2,14 @@ extends layout
 
 block game
 
-  h2 =message
+  h2
+    =message
   hr
   if coins < 1 || room == ''
     include lobby
   else
     include roulette
-    script(src='/js/events.js')
+    script(src='/js/events.js', type='text/javascript')
     hr
     div Say something: 
     input(name = 'chat', id = 'chat', type = 'text', value = '')

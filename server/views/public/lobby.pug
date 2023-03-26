@@ -5,7 +5,9 @@ div(class = 'lobby') Lobby
       option
       each room in rooms
         option(value=room)= room
+    br
     label(for = 'coins') Enter coins: 
-    input(name = 'coins', type = 'text', value = '')
+    input(name = 'coins', type = 'text', value = '100')
+    br
     input(type = 'submit', value = 'Enter game')
 

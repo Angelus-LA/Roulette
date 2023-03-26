@@ -1,4 +1,5 @@
 const ws = new WebSocket((document.location.protocol == 'https:' ? 'wss' : 'ws') + '://' + document.location.host + '/ws')
+var socket = io()
 
 function addNumListeners() {
   for (let i = 1; i <= 36; i++) {
