@@ -14,6 +14,10 @@ block game
     div Say something: 
     input(name = 'chat', id = 'chat', type = 'text', value = '')
     button(type = 'button' id = 'send_chat' onclick = 'sendChatMessage()') Send
+    form(id = 'chatform')
+      input(name = 'fchat', id = 'fchat', type = 'text')
+      input(type = 'Submit', value = 'Send')
     div(id = 'wsmessages') Messages:
+    script(src='/js/chat.js', type='text/javascript')
   a(href = '/logout/') Log out
 

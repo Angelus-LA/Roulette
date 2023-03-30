@@ -18,21 +18,21 @@ function addNumListeners() {
 
 ws.onmessage = (event) => {
   console.log(event);
-  let messageObject = JSON.parse(event.data);
-  let el = document.getElementById('wsmessages');
+  let messageObject = JSON.parse(event.data)
+  let el = document.getElementById('wsmessages')
   if (messageObject.type == 'chat') {
-    el.innerHTML += ('<br>' + /*event.session.username + ': ' +*/ messageObject.data);
+    el.innerHTML += ('<br>' + /*event.session.username + ': ' +*/ messageObject.data)
   } else if (messageObject.type == 'bid') {
-    el.innerHTML += ('<br>' + messageObject.data);
+    el.innerHTML += ('<br>' + messageObject.data)
   }
-};
+}
 
 function sendChatMessage() {
   let el = document.getElementById('chat')
   ws.send(JSON.stringify({
     'type': 'chat',
     'data': el.value
-  }));
+  }))
 }
 
 addNumListeners()

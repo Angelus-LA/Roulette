@@ -39,10 +39,14 @@ const session = sessions(
 
 app.use(session)
 
-io.on("connection", function (socket) {
-  console.log("connected")
-  socket.on("join room", (data) => {
+io.on('connection', function (socket) {
+  console.log('connected')
+  socket.on('join room', (data) => {
     console.log('in room')
+  })
+  socket.on('chat message', (data) => {
+    console.log(data)
+    socket.emit('chat message', { data: data })
   })
 })
     /*let Newuser = joinUser(socket.id, data.username,data.roomName)
@@ -106,25 +110,21 @@ for (let entry in {public : routes.public}) {
 app.use('/', router)
 
 wsServer.on('connection', (ws) => {
-
-  console.log('New client connected! ');
-
+  console.log('New client connected! ')
   ws.on('message', function incoming(data) {
-    let messageObject = JSON.parse(data.toString('utf8'));
+    let messageObject = JSON.parse(data.toString('utf8'))
     if (messageObject.type == 'chat') {
       wsServer.clients.forEach((client) => {
-        client.send(JSON.stringify(messageObject));
-      });
+        client.send(JSON.stringify(messageObject))
+      })
     } else if (messageObject.type == 'bid') {
       wsServer.clients.forEach((client) => {
-        client.send(JSON.stringify(messageObject));
-      });
+        client.send(JSON.stringify(messageObject))
+      })
     }
-  });
-
-  ws.on('close', () => console.log('Client has disconnected! '));
-
-});
+  })
+  ws.on('close', () => console.log('Client has disconnected! '))
+})
 
 const server = app.listen(port)
 
