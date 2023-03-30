@@ -127,6 +127,7 @@ wsServer.on('connection', (ws) => {
 })
 
 const server = app.listen(port)
+io.attach(server)
 
 server.on('upgrade', (request, socket, head) => {
   wsServer.handleUpgrade(request, socket, head, socket => {

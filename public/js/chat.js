@@ -11,7 +11,7 @@ document.getElementById('chatform').addEventListener('submit', function (event) 
 })
 
 socket.on('chat message', (data) => {
-  displayMessage(data.value)
+  displayMessage(data.data.value)
 })
 
 const displayMessage = msg => {
