@@ -5,8 +5,6 @@ const sessions = require('express-session')
 const connectRedis = require('connect-redis')
 const Redis = require("ioredis")
 const crypto = require('crypto')
-const ws = require('ws')
-//const config = require('config')
 
 const app = express()
 const http = require('http').createServer(app)
@@ -39,43 +37,19 @@ const session = sessions(
 
 app.use(session)
 
-io.on('connection', function (socket) {
+io.on('connection', socket => {
   console.log('connected')
-  socket.on('join room', (data) => {
+  socket.on('join room', data => {
     console.log('in room')
   })
-  socket.on('chat message', (data) => {
+  socket.on('chat message', data => {
     console.log(data)
     socket.emit('chat message', { data: data })
   })
+  socket.on('typing', msg => {
+    io.emit('typing', { 'message': msg.message, 'username': msg.username })
+  })
 })
-    /*let Newuser = joinUser(socket.id, data.username,data.roomName)
-    //io.to(Newuser.roomname).emit('send data' , {username : Newuser.username,roomname : Newuser.roomname, id : socket.id})
-   // io.to(socket.id).emit('send data' , {id : socket.id ,username:Newuser.username, roomname : Newuser.roomname })
-   socket.emit('send data' , {id : socket.id ,username:Newuser.username, roomname : Newuser.roomname })
-    thisRoom = Newuser.roomname
-    console.log(Newuser)
-    socket.join(Newuser.roomname)
-  })
-  socket.on("chat message", (data) => {
-    io.to(thisRoom).emit("chat message", {data:data,id : socket.id})
-  })
-  socket.on("disconnect", () => {
-    const user = removeUser(socket.id)
-    console.log(user)
-    if (user) {
-      console.log(user.username + ' has left')
-    }
-    console.log("disconnected")
-  })
-}) */
-
-const wsServer = new ws.Server(
-  {
-    noServer : true,
-    path : '/ws'
-  }
-)
 
 const router = express.Router()
 const { routes } = require('./routes.js')
@@ -109,29 +83,13 @@ for (let entry in {public : routes.public}) {
 
 app.use('/', router)
 
-wsServer.on('connection', (ws) => {
-  console.log('New client connected! ')
-  ws.on('message', function incoming(data) {
-    let messageObject = JSON.parse(data.toString('utf8'))
-    if (messageObject.type == 'chat') {
-      wsServer.clients.forEach((client) => {
-        client.send(JSON.stringify(messageObject))
-      })
-    } else if (messageObject.type == 'bid') {
-      wsServer.clients.forEach((client) => {
-        client.send(JSON.stringify(messageObject))
-      })
-    }
-  })
-  ws.on('close', () => console.log('Client has disconnected! '))
-})
-
 const server = app.listen(port)
 io.attach(server)
-
+/*
 server.on('upgrade', (request, socket, head) => {
   wsServer.handleUpgrade(request, socket, head, socket => {
     wsServer.emit('connection', socket, request)
   })
 })
+*/
 

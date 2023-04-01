@@ -1,21 +1,35 @@
 var socket = io()
 
-document.getElementById('chatform').addEventListener('submit', function (event) {
+const gete = id => document.getElementById(id)
+
+var chatForm = gete('chatform')
+var chatField = gete('chat')
+var chatmessages = gete('iomessages')
+
+chatForm.addEventListener('submit', function (event) {
   event.preventDefault()
-  let el = document.getElementById('fchat')
   socket.emit('chat message', {
-    value: el.value
+    type: 'chat',
+    value: chatField.value
   })
-  el.value = ''
-  el.focus()
+  chatField.value = ''
+  chatField.focus()
 })
 
-socket.on('chat message', (data) => {
+socket.on('chat message', data => {
   displayMessage(data.data.value)
 })
 
+chatField.oninput = event => {
+  // alert(chatfield.value)
+  if (!chatField.value) {
+    // stop showing 'typing to others'
+  } else {
+    socket.emit('typing', { data: event.value })
+  }
+}
+
 const displayMessage = msg => {
-  let el = document.getElementById('wsmessages')
-  el.innerHTML += ('<br>' + msg)
+  chatmessages.innerHTML += ('<br>' + msg)
 }
 

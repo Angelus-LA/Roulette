@@ -5,6 +5,6 @@ block login
   h2 Login
 
   form(action = routes.public.processlogin.url, method = routes.public.processlogin.method)
-    input(name = 'username', type = 'text')
+    input(name = 'username', type = 'text' oninput = 'userNameInput()')
     input(name = 'password', type = 'password')
     input(type = 'Submit', value = 'Login')

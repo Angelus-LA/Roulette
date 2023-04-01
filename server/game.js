@@ -38,7 +38,7 @@ const processLobby = routes => (req, res) => {
   (async _ => {
     req.session.room = req.body.room
     req.session.coins = req.body.coins
-    await redisClient.del('rooms')
+    await redisClient.del('rooms') /* Do not use when trying to connect multiple users */
     const rooms = await redisClient.hgetall('rooms');
     if (!rooms) {
       await redisClient.hmset('rooms', {})
